@@ -23,3 +23,4 @@ yum install qt5-qtbase-devel
 ```bash
 yum install PyQt5
 ```
+** some of the files are in development, if you face any issue or can modified it,please let me know **
