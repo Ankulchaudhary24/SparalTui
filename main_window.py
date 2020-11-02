@@ -9,6 +9,8 @@ from general_commands import GeneralWindow
 from network_window import NetworkWindow
 from service_window import ServiceWindow
 
+UserName = " "
+logintype = 0
 MainWindow = "MainWindow.ui"
 Ui_MainWindow, QtBaseClass = uic.loadUiType(MainWindow)
 
@@ -26,47 +28,17 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.move(qtRectangle.topLeft())
         self.setWindowTitle("Main Window")
         self.date.setText(str(date))
-        self.YumRelatedCommands.clicked.connect(self.YumWindow_Enter)
-        self.UserRelatedCommands.clicked.connect(self.UserWindow_Enter)
-        self.GeneralCommands.clicked.connect(self.GeneralWindow_Enter)
-        self.ServiceConfigurationSettings.clicked.connect(self.ServiceWindow_Enter)
-        self.FileSystem.clicked.connect(self.FileWindow_Enter)
-        self.NetworkSettings.clicked.connect(self.NetworkWindow_Enter)
-        self.Exit.clicked.connect(self.Exit_Window)
+        self.YumRelatedCommands.clicked.connect(lambda: self.Window_Enter(lambda: YumWindow()))
+        self.UserRelatedCommands.clicked.connect(lambda: self.Window_Enter(lambda: UserWindow()))
+        self.GeneralCommands.clicked.connect(lambda: self.Window_Enter(lambda: GeneralWindow()))
+        self.ServiceConfigurationSettings.clicked.connect(lambda: self.Window_Enter(lambda:ServiceWindow()))
+        self.FileSystem.clicked.connect(lambda: self.Window_Enter(lambda:FileWindow()))
+        self.NetworkSettings.clicked.connect(lambda: self.Window_Enter(lambda:NetworkWindow()))
+        self.Exit.clicked.connect(lambda: self.Window_Enter(lambda: LoginWindow()))
         self.h = QtWidgets.QLabel()
         
-    def Exit_Window(self):
-        self.cams = LoginWindow() 
-        self.cams.show()
-        self.close()
-        
-    def YumWindow_Enter(self):
-        self.cams = YumWindow() 
-        self.cams.show()
-        self.close()
-        
-    def UserWindow_Enter(self):
-        self.cams = UserWindow() 
-        self.cams.show()
-        self.close()
-        
-    def GeneralWindow_Enter(self):
-        self.cams = GeneralWindow() 
-        self.cams.show()
-        self.close()
-    
-    def FileWindow_Enter(self):
-        self.cams = FileWindow() 
-        self.cams.show()
-        self.close()
-    
-    def NetworkWindow_Enter(self):
-        self.cams = NetworkWindow() 
-        self.cams.show()
-        self.close()
-        
-    def ServiceWindow_Enter(self):
-        self.cams = ServiceWindow() 
+    def Window_Enter(self,s):
+        self.cams=s()
         self.cams.show()
         self.close()
         

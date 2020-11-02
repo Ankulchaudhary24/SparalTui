@@ -21,6 +21,7 @@ class FileWindow(QtWidgets.QMainWindow,Ui_FileWindow):
         qtRectangle.moveCenter(centerPoint)
         self.move(qtRectangle.topLeft())
         self.cdp.clicked.connect(lambda: self.takeinputs("Enter the number of partion You want to make:",1))
+        self.vfds.clicked.connect(lambda: self.Output_("free -h"))
         self.Exit.clicked.connect(self.Exit_Window)
         
     def takeinputs(self,__str,num): 
@@ -33,6 +34,13 @@ class FileWindow(QtWidgets.QMainWindow,Ui_FileWindow):
                 stdouterr = os.popen("fdisk "+name).read()
             self.cams.te.setText(stdouterr)
             self.cams.show()
+            
+    def Output_(self,__str):
+        _str = __str
+        self.cams = Output()
+        stdouterr = os.popen(_str).read()
+        self.cams.te.setText(stdouterr)
+        self.cams.show()
             
         
     def Exit_Window(self):
